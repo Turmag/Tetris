@@ -1,0 +1,20 @@
+{
+    "name": "tetris",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "deploy": "scp -r dist/* u1296340@31.31.196.240:./www/focusinfo.ru/tetris",
+        "bd": "yarn build && yarn deploy"
+    },
+    "devDependencies": {
+        "typescript": "^4.9.3",
+        "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "sass": "^1.57.1"
+    }
+}
