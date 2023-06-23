@@ -215,10 +215,6 @@ export default class View {
         height: number;
         img: HTMLImageElement;
     }) {
-        const ctx = this.context;
-        ctx.strokeStyle = 'gray';
-        ctx.lineWidth = 2;
-
         this.context.drawImage(img, x, y, width, height);
     }
 }
