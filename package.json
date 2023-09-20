@@ -7,7 +7,7 @@
         "dev": "vite",
         "build": "tsc && vite build",
         "preview": "vite preview",
-        "deploy": "scp -r dist/* u1296340@31.31.196.240:./www/focusinfo.ru/tetris",
+        "deploy": "scp -r dist/* u2250830@37.140.192.227:./www/focusinfo.ru/tetris",
         "bd": "yarn build && yarn deploy"
     },
     "devDependencies": {
