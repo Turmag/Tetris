@@ -1,17 +1,29 @@
-export default class Controller {
-    game: any;
-    view: any;
-    isPlaying = false;
-    interval: any = null;
+import Game from '@/assets/js/Game';
+import View from '@/assets/js/View';
+import { mainStore } from '@/store';
 
-    constructor(game: any, view: any) {
+export default class Controller {
+    game: Game;
+    view: View;
+    isPlaying = false;
+    firstRenderInterval: null | ReturnType<typeof setInterval> = null;
+    interval: null | ReturnType<typeof setTimeout> = null;
+
+    constructor(game: Game, view: View) {
         this.game = game;
         this.view = view;
 
         document.addEventListener('keydown', this.handleKeyDown.bind(this));
         document.addEventListener('keyup', this.handleKeyUp.bind(this));
 
-        setTimeout(() => this.view.renderStartScreen(), 1000);
+        const store = mainStore();
+
+        this.firstRenderInterval = setInterval(() => {
+            if(store.isLoadedData) {
+                clearInterval(this.firstRenderInterval!);
+                this.view.renderStartScreen();
+            }
+        }, 100);
     }
 
     update() {
@@ -42,7 +54,7 @@ export default class Controller {
         if (state.isGameOver) {
             this.view.renderEndScreen(state);
         } else if (!this.isPlaying) {
-            this.view.renderPauseScreen(state);
+            this.view.renderPauseScreen();
         } else {
             this.view.renderMainScreen(state);
         }
@@ -63,11 +75,11 @@ export default class Controller {
         }
     }
 
-    handleKeyDown(e: any) {
+    handleKeyDown(e: KeyboardEvent) {
         const state = this.game.getState();
 
-        switch (e.keyCode) {
-            case 13: // ENTER
+        switch (e.key) {
+            case 'Enter':
                 if (state.isGameOver) {
                     this.reset();
                 } else if (this.isPlaying) {
@@ -76,7 +88,8 @@ export default class Controller {
                     this.play();
                 }
                 break;
-            case 27: // ENTER
+            case 'Esc': 
+            case 'Escape': 
                 if (!state.isGameOver) {
                     if (this.isPlaying) {
                         this.pause();
@@ -85,25 +98,25 @@ export default class Controller {
                     }
                 }
                 break;
-            case 37: // LEFT ARROW
+            case 'ArrowLeft':
                 if (this.isPlaying) {
                     this.game.movePieceLeft();
                     this.updateView();
                 }
                 break;
-            case 38: // UP ARROW
+            case 'ArrowUp':
                 if (this.isPlaying) {
                     this.game.rotatePiece();
                     this.updateView();
                 }
                 break;
-            case 39: // RIGHT ARROW
+            case 'ArrowRight':
                 if (this.isPlaying) {
                     this.game.movePieceRight();
                     this.updateView();
                 }
                 break;
-            case 40: // DOWN ARROW
+            case 'ArrowDown':
                 if (this.isPlaying) {
                     this.stopTimer();
                     this.game.movePieceDown();
@@ -113,9 +126,9 @@ export default class Controller {
         }
     }
 
-    handleKeyUp(e: any) {
-        switch (e.keyCode) {
-            case 40: // DOWN ARROW
+    handleKeyUp(e: KeyboardEvent) {
+        switch (e.key) {
+            case 'ArrowDown':
                 if (this.isPlaying) {
                     this.startTimer();
                 }

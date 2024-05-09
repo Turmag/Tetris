@@ -1,0 +1,41 @@
+@import '@/assets/fonts/fonts.css';
+
+:root {
+    --color: rgb(255 255 255 / 87%);
+    --background-color: #242424;
+
+    box-sizing: border-box;
+    font-family: "PressStart2P", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color);
+    font-weight: 400;
+    color-scheme: light dark;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-size-adjust: 100%;
+}
+
+img {
+    user-drag: none;
+    user-select: none;
+}
+
+#app {
+    width: 100%;
+}
+
+body {
+    display: flex;
+    min-width: 320px;
+    margin: 0;
+    padding: 8px;
+    background-color: var(--background-color);
+
+    &.dark {
+        --color: rgb(255 255 255 / 87%);
+        --background-color: #242424;
+    }
+}

@@ -1,5 +1,8 @@
+import { State, Piece } from '@/services/types';
+import { mainStore } from '@/store';
+
 export default class View {
-    static blocks = {
+    static blocks: Record<number, string> = {
         1: 'cyan',
         2: 'blue',
         3: 'orange',
@@ -8,7 +11,7 @@ export default class View {
         6: 'red',
         7: 'purple',
         8: 'gray',
-    } as { [key: number]: any };
+    };
 
     element: HTMLElement;
     width = 0;
@@ -31,7 +34,7 @@ export default class View {
     panelWidth = 0;
     images: HTMLImageElement[] = [];
 
-    constructor(element: any, width: number, height: number, rows: number, columns: number) {
+    constructor(element: HTMLElement, width: number, height: number, rows: number, columns: number) {
         this.element = element;
         this.width = width;
         this.height = height;
@@ -41,11 +44,11 @@ export default class View {
         this.playfieldInnerWidth = this.playfieldWidth - this.playfieldBorderWidth * 2;
         this.playfieldInnerHeight = this.playfieldHeight - this.playfieldBorderWidth * 2;
 
-        this.canvas = document.createElement('canvas') as HTMLCanvasElement;
+        this.canvas = document.createElement('canvas');
         this.canvas.width = this.width;
         this.canvas.height = this.height;
 
-        this.context = this.canvas.getContext('2d');
+        this.context = this.canvas.getContext('2d')!;
 
         this.blockWidth = this.playfieldInnerWidth / columns;
         this.blockHeight = this.playfieldInnerHeight / rows;
@@ -57,14 +60,23 @@ export default class View {
         this.panelWidth = this.width / 3;
 
         this.element.appendChild(this.canvas);
+
+        let blockInitCount = 0;
         for (const key in View.blocks) {
             const img = new Image();
-            img.src = new URL(`/assets/img/${View.blocks[key]}.png`, import.meta.url).href;
+            img.src = new URL(`../img/${View.blocks[key]}.png`, import.meta.url).href;
             this.images[key] = img;
+            img.onload = () => {
+                blockInitCount++;
+                if(blockInitCount === Object.keys(View.blocks).length) {
+                    const store = mainStore();
+                    store.isLoadedData = true;
+                }
+            };
         }
     }
 
-    renderMainScreen(state: any) {
+    renderMainScreen(state: State) {
         this.clearScreen();
         this.renderPlayfieldWall();
         this.renderPlayfield(state.playfield);
@@ -172,7 +184,7 @@ export default class View {
         level: number;
         score: number;
         lines: number;
-        nextPiece: any;
+        nextPiece: Piece;
     }) {
         const ctx = this.context;
         ctx.textAlign = 'start';

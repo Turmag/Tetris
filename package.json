@@ -1,20 +1,40 @@
 {
-    "name": "tetris",
+    "name": "numbers-gallery",
     "private": true,
-    "version": "0.0.0",
-    "type": "module",
+    "version": "2.0.0",
+    "type": "commonjs",
     "scripts": {
         "dev": "vite",
-        "build": "tsc && vite build",
+        "build": "vite build",
         "preview": "vite preview",
         "deploy": "scp -r dist/* u2250830@37.140.192.227:./www/focusinfo.ru/tetris",
         "bd": "yarn build && yarn deploy"
     },
-    "devDependencies": {
-        "typescript": "^4.9.3",
-        "vite": "^4.0.0"
-    },
     "dependencies": {
-        "sass": "^1.57.1"
+        "pinia": "^2.1.7",
+        "sass": "^1.75.0",
+        "vue": "^3.4.23"
+    },
+    "devDependencies": {
+        "@rushstack/eslint-patch": "^1.7.2",
+        "@types/node": "^20.11.24",
+        "@typescript-eslint/eslint-plugin": "^7.3.1",
+        "@typescript-eslint/parser": "^7.3.1",
+        "@vitejs/plugin-vue": "^3.2.0",
+        "@vue/eslint-config-typescript": "^13.0.0",
+        "eslint": "^8.57.0",
+        "eslint-plugin-jsonc": "^2.14.1",
+        "eslint-plugin-vue": "^9.23.0",
+        "postcss-html": "^1.6.0",
+        "stylelint": "15.10.1",
+        "stylelint-config-recommended": "13.0.0",
+        "stylelint-config-recommended-scss": "13.0.0",
+        "stylelint-config-recommended-vue": "^1.5.0",
+        "stylelint-config-standard": "34.0.0",
+        "stylelint-order": "^6.0.4",
+        "stylelint-scss": "^5.3.2",
+        "stylelint-stylistic": "^0.4.5",
+        "typescript": "^4.6.4",
+        "vite": "^3.2.3"
     }
 }

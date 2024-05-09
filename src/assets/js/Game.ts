@@ -1,23 +1,33 @@
+import { State, Piece } from '@/services/types';
+
 export default class Game {
     static points = {
         1: 40,
         2: 100,
         3: 300,
         4: 1200,
-    } as { [key: number]: any };
+    } as Record<number, number>;
 
     score = 0;
     lines = 0;
     topOut = false;
-    playfield: number[][];
-    activePiece: any;
-    nextPiece: any;
+    playfield: number[][] = [[]];
+    activePiece: Piece = {
+        block: [[]],
+        x: 0,
+        y: 0,
+    };
+    nextPiece: Piece = {
+        block: [[]],
+        x: 0,
+        y: 0,
+    };
 
     constructor() {
         this.reset();
     }
 
-    getState() {
+    getState(): State {
         return {
             score: this.score,
             level: this.level,
@@ -68,8 +78,12 @@ export default class Game {
 
     createPiece() {
         const index = Math.floor(Math.random() * 7);
-        const type = 'IJLOSTZ'[index] as string;
-        const piece = { x: 0, y: 0, block: [] as number[][] };
+        const type = 'IJLOSTZ'[index];
+        const piece = {
+            x: 0,
+            y: 0,
+            block: [] as number[][], 
+        };
         const figure = {
             I: [
                 [0, 0, 0, 0],
@@ -108,7 +122,7 @@ export default class Game {
                 [7, 7, 0],
                 [0, 7, 7],
             ],
-        } as { [key: string]: any };
+        } as Record<string, number[][]>;
 
         piece.block = figure[type];
         piece.x = Math.floor((this.playfield[0].length - piece.block[0].length) / 2);
@@ -207,7 +221,7 @@ export default class Game {
         return false;
     }
 
-    isExistValue(value: any) {
+    isExistValue(value: unknown) {
         return typeof value !== 'undefined';
     }
 
@@ -225,7 +239,7 @@ export default class Game {
     clearLines() {
         const rows = this.playfield.length;
         const columns = this.playfield[0].length;
-        let lines = [];
+        const lines = [];
 
         for (let y = rows - 1; y >= 0; y--) {
             let numberOfBlocks = 0;
@@ -245,9 +259,9 @@ export default class Game {
             }
         }
 
-        for (let index of lines) {
+        for (const index of lines) {
             this.playfield.splice(index, 1);
-            this.playfield.unshift(new Array(columns).fill(0));
+            this.playfield.unshift(new Array(columns).fill(0) as number[]);
         }
 
         return lines.length;

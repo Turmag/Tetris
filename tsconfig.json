@@ -1,20 +1,23 @@
 {
     "compilerOptions": {
-        "target": "ESNext",
-        "useDefineForClassFields": true,
-        "module": "ESNext",
-        "lib": ["ESNext", "DOM"],
-        "moduleResolution": "Node",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"],
+            "@components/*": ["src/components/*"],
+            "@assets/*": ["src/assets/*"]
+        },
+        "lib": ["esnext", "dom"],
+        "types": ["node", "vite/client"],
+        "target": "esnext",
+        "module": "esnext",
+        "moduleResolution": "node",
         "strict": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "esModuleInterop": true,
-        "noEmit": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noImplicitReturns": true,
-        "skipLibCheck": true,
-        "strictNullChecks": false
+        "allowSyntheticDefaultImports": true
     },
-    "include": ["src"]
+    "include": [
+        "./**/*",
+        ".eslintrc.js",
+        "**/*/*.json",
+        "package.json",
+    ]
 }
