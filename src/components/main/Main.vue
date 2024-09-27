@@ -7,14 +7,14 @@
 </template>
 
 <script setup lang="ts">
-import Game from '@/assets/js/Game';
-import View from '@/assets/js/View';
-import Controller from '@/assets/js/Controller';
-import Loader from '@/components/Loader.vue';
-import Description from '@/components/main/Description.vue';
 import {
     ref, watch, onMounted, 
 } from 'vue';
+import Game from '@/shared/Game';
+import View from '@/shared/View';
+import Controller from '@/shared/Controller';
+import Loader from '@/components/Loader.vue';
+import Description from '@/components/main/Description.vue';
 import { mainStore } from '@/store';
 
 const store = mainStore();

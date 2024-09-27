@@ -1,4 +1,4 @@
-import { State, Piece } from '@/services/types';
+import type { State, Piece } from '@/shared/Types';
 import { mainStore } from '@/store';
 
 export default class View {
@@ -64,7 +64,7 @@ export default class View {
         let blockInitCount = 0;
         for (const key in View.blocks) {
             const img = new Image();
-            img.src = new URL(`../img/${View.blocks[key]}.png`, import.meta.url).href;
+            img.src = new URL(`../assets/img/${View.blocks[key]}.png`, import.meta.url).href;
             this.images[key] = img;
             img.onload = () => {
                 blockInitCount++;

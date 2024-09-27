@@ -1,5 +1,5 @@
-import Game from '@/assets/js/Game';
-import View from '@/assets/js/View';
+import Game from '@/shared/Game';
+import View from '@/shared/View';
 import { mainStore } from '@/store';
 
 export default class Controller {

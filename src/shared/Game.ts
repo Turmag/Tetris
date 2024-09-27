@@ -1,4 +1,4 @@
-import { State, Piece } from '@/services/types';
+import type { State, Piece } from '@/shared/Types';
 
 export default class Game {
     static points = {
