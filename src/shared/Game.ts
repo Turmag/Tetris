@@ -148,9 +148,7 @@ export default class Game {
     }
 
     movePieceDown() {
-        if (this.topOut) {
-            return;
-        }
+        if (this.topOut) return;
 
         this.activePiece.y += 1;
 
@@ -162,9 +160,21 @@ export default class Game {
             this.updatePieces();
         }
 
-        if (this.hasCollision()) {
-            this.topOut = true;
+        if (this.hasCollision()) this.topOut = true;
+    }
+
+    movePieceDownMax() {
+        while(!this.hasCollision()) {
+            this.activePiece.y += 1;
         }
+
+        this.activePiece.y -= 1;
+        this.lockPiece();
+        const clearedLines = this.clearLines();
+        this.updateScore(clearedLines);
+        this.updatePieces();
+
+        if (this.hasCollision()) this.topOut = true;
     }
 
     rotatePiece() {

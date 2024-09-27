@@ -123,6 +123,11 @@ export default class Controller {
                     this.updateView();
                 }
                 break;
+            case ' ':
+                if (this.isPlaying) {
+                    this.game.movePieceDownMax();  
+                }
+                break;
         }
     }
 
